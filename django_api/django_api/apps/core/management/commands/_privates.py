@@ -175,19 +175,19 @@ def generate_fake_users():
 
 def generate_real_data(fast=False, area=None, update=False):
     if not update:
-        generate_fake_users()
-
-        # Generate workspaces
-        process_workspaces()
+        # generate_fake_users()
+        #
+        # # # Generate workspaces
+        # process_workspaces()
 
         # Generate partners
         process_partners(area)
 
-    # Generate programme documents
-    process_programme_documents(fast, area)
-
-    # Generate reports
-    generate_reports()
+    # # Generate programme documents
+    # process_programme_documents(fast, area)
+    #
+    # # Generate reports
+    # generate_reports()
 
 
 def generate_reports():

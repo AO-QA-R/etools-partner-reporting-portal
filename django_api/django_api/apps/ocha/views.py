@@ -14,7 +14,7 @@ from ocha.constants import HPC_V1_ROOT_URL, RefCode, HPC_V2_ROOT_URL
 
 from ocha.imports.utilities import get_json_from_url
 from ocha.imports.response_plan import import_response_plan
-from ocha.imports.project import import_project, get_project_list_for_plan
+from ocha.imports.project import import_project, get_project_list_for_plan, get_project_details
 from ocha.imports.bulk import get_response_plans_for_countries, fetch_json_urls_async
 from ocha.utilities import trim_list
 from partner.models import Partner
@@ -129,9 +129,17 @@ class RPMProjectListAPIView(APIView):
 
         return get_project_list_for_plan(response_plan.external_id)
 
+    def is_belong_to_partner(self, project, name):
+        project_details = get_project_details(project['id'])
+        print("Hitting " + str(project['id']))
+        return name in project_details['partners']
+
     def get(self, request, *args, **kwargs):
         projects = self.get_projects()
-
+        name = "LIBYAN RED CRESCENT SOCIETY"
+        for project in projects:
+            if not self.is_belong_to_partner(project, name):
+                projects.remove(project)
         return Response(trim_list(projects))
 
     def get_partner(self):

@@ -111,12 +111,13 @@ class IndicatorsXLSXReader(object):
                                 dis_type_id = str(tuple(dis_type_value))
 
                             # Update values
-                            if blueprint.unit == IndicatorBlueprint.NUMBER:
-                                data[dis_type_id]["v"] = value
-                            else:
-                                v, d = value.split("/")
-                                data[dis_type_id]["v"] = int(v)
-                                data[dis_type_id]["d"] = int(d)
+                            if dis_type_id in data:
+                                if blueprint.unit == IndicatorBlueprint.NUMBER:
+                                    data[dis_type_id]["v"] = value
+                                else:
+                                    v, d = value.split("/")
+                                    data[dis_type_id]["v"] = int(v)
+                                    data[dis_type_id]["d"] = int(d)
                     except Exception:
                         return "Cannot assign disaggregation value to column " + str(column)
 

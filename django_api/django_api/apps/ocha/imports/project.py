@@ -109,3 +109,11 @@ def get_project_list_for_plan(plan_id):
     except Exception:
         logger.exception('Error trying to list projects for response plan')
         return []
+
+def get_project_details(external_project_id):
+    source_url = HPC_V2_ROOT_URL + 'project/{}'.format(external_project_id)
+    try:
+        return get_json_from_url(source_url)['data']
+    except Exception:
+        logger.exception('Error trying to get project details')
+        return []
